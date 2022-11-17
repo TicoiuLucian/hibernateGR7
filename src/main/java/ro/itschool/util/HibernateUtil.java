@@ -1,15 +1,20 @@
 package ro.itschool.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
 
-
+@Slf4j
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
+
+    private HibernateUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static SessionFactory buildSessionFactory() {
         try {
@@ -23,18 +28,13 @@ public class HibernateUtil {
             return metadata.getSessionFactoryBuilder().build();
         } catch (Exception ex) {
 
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            log.error(String.format("%sInitial SessionFactory creation failed.", ex));
             throw new ExceptionInInitializerError(ex);
         }
     }
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
-    }
-
-    public static void shutdown() {
-        // Close caches and connection pools
-        getSessionFactory().close();
     }
 
 }

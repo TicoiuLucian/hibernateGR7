@@ -1,5 +1,6 @@
 package ro.itschool;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,9 +16,8 @@ import ro.itschool.util.HibernateUtil;
 // are placed in a single table.
 //Joined Table – Each class has its table, and querying a subclass entity requires joining the tables.
 //Table per Class – All the properties of a class are in its table, so no join is required.
-
+@Slf4j
 public class App {
-
     public static void main(String[] args) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -56,8 +56,8 @@ public class App {
 
         final Owner owner1 = session.get(Owner.class, 1);
         final Dog dog1 = session.get(Dog.class, 1);
-        System.out.println(owner1);
-        System.out.println(dog1);
+        log.info(String.valueOf(owner1));
+        log.info(dog1.toString());
 
         session.close();
 

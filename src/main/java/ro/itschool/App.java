@@ -164,6 +164,6 @@ public class App {
         session.close();
         sessionFactory.close();
 
-
+        System.out.println("hello-github test");
     }
 }
